@@ -12,3 +12,7 @@ Current topics:
 - `union-find.md`
   - Union-find data structure
   - Persistent Union-find
+- `range-data-structures.md`
+  - Fenwick Tree
+- `floor-sum.md`
+  - Like-Euclidean Algorithms

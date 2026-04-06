@@ -2,15 +2,13 @@
 
 ## Union Find
 
-Time: O(alpha(N))
-
 Implemented: 4/6/2026
 
 Tested:
 * 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_a
 ```kotlin
 class UnionFind(n: Int) {
-    val dat: ArrayList<Int> = List(n) { -1 } as ArrayList<Int>
+    val dat: IntArray = IntArray(n) { -1 }
 
     fun find(x: Int): Int {
         if (dat[x] < 0) {
@@ -44,21 +42,20 @@ class UnionFind(n: Int) {
 
 ## Union Find with Rollback
 
-Time: O(log(N))
-
 Implemented: 4/6/2026
+
+Tested: not tested
 ```kotlin
 class UnionFindRollBack(n: Int) {
-    val dat: ArrayList<Int> = List(n) { -1 } as ArrayList<Int>
+    val dat: IntArray = IntArray(n) { -1 }
     val st: Stack<Pair<Int, Int>> = Stack()
 
     fun find(x: Int): Int {
-        if (dat[x] < 0) {
-            return x
-        } else {
-            dat[x] = find(dat[x])
-            return dat[x]
+        var curr = x
+        while (dat[curr] >= 0) {
+            curr = dat[curr]
         }
+        return curr
     }
 
     fun size(x: Int): Int {
@@ -74,7 +71,7 @@ class UnionFindRollBack(n: Int) {
     }
 
     fun rollback(t: Int) {
-        for (i in time() downTo t) {
+        while (st.size > t) {
             val (a, b) = st.pop()
             dat[a] = b
         }
