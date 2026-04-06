@@ -1,5 +1,3 @@
-import java.util.*
-
 /** IO */
 private val INPUT = System.`in`
 
