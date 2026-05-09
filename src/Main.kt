@@ -43,9 +43,45 @@ private fun readInts() = readStrings().map { it.toInt() } // list of ints
 private fun readLongs() = readStrings().map { it.toLong() } // list of longs
 private fun readDoubles() = readStrings().map { it.toDouble() } // list of doubles
 
-fun main() {
-    val t = readInt()
-    repeat(t) {
-        // do something
+private fun nextInt(): Int {
+    var c = readChar()
+    while (c != Char.MIN_VALUE && c <= ' ') {
+        c = readChar()
     }
+    if (c == Char.MIN_VALUE) throw NoSuchElementException()
+    var sign = 1
+    if (c == '-') {
+        sign = -1
+        c = readChar()
+    }
+    var res = 0
+    while (c != Char.MIN_VALUE && c > ' ') {
+        res = res * 10 + (c - '0')
+        c = readChar()
+    }
+    return res * sign
+}
+
+private fun nextLong(): Long {
+    var c = readChar()
+    while (c != Char.MIN_VALUE && c <= ' ') {
+        c = readChar()
+    }
+    if (c == Char.MIN_VALUE) throw NoSuchElementException()
+    var sign = 1L
+    if (c == '-') {
+        sign = -1L
+        c = readChar()
+    }
+    var res = 0L
+    while (c != Char.MIN_VALUE && c > ' ') {
+        res = res * 10L + (c - '0').toLong()
+        c = readChar()
+    }
+    return res * sign
+}
+
+// Main Code
+
+fun main() {
 }

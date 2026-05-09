@@ -1,5 +1,24 @@
 # Number Theory
 
+## Fast Modular Exponentiation
+
+Tested:
+* 5/9/2026 - https://www.luogu.com.cn/problem/P1226
+
+```kotlin
+fun binpow(a: Long, b: Long, p: Long): Long {
+    var (a, b) = Pair(a, b)
+    if (b == 0L) return 1 % p
+    var ans = 1L
+    while (b > 0) {
+        if (b and 1 == 1L) ans = ans * a % p
+        a = a * a % p
+        b = b shr 1
+    }
+    return ans
+}
+```
+
 Implemented: 4/6/2026
 
 ## Extended GCD
