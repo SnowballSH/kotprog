@@ -5,7 +5,8 @@
 Implemented: 4/6/2026
 
 Tested (update, query):
-* 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_b
+- 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_b
+
 ```kotlin
 /**
  * Maintains an array `a`.
@@ -104,7 +105,8 @@ class FenwickTree(n: Int) {
 Implemented: 4/6/2026
 
 Tested:
-* 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_j
+- 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_j
+
 ```kotlin
 /**
  * Maintains an array `a`.
@@ -273,7 +275,8 @@ class SegmentTree<T>(
 Implemented: 4/6/2026
 
 Tested:
-* 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_l
+- 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_l
+
 ```kotlin
 /**
  * Maintains an array `a`.

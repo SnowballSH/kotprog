@@ -5,7 +5,8 @@
 Implemented: 4/6/2026
 
 Tested:
-* 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_a
+- 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_a
+
 ```kotlin
 /**
  * Maintains a partition of vertices `[0, n)`.
@@ -107,6 +108,7 @@ class UnionFind(n: Int) {
 Implemented: 4/6/2026
 
 Tested: not tested
+
 ```kotlin
 /**
  * Maintains a partition of vertices `[0, n)` with rollback support.

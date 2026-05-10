@@ -5,7 +5,8 @@ Source: https://oi-wiki.org/math/number-theory/euclidean/
 ## Like-Euclidean Calculator
 
 Tested (rawF):
-* 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_c
+- 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_c
+
 ```kotlin
 /**
  * Represents the configuration for which sums to compute.
@@ -19,7 +20,7 @@ data class FloorSumConfig(
     val computeRawF: Boolean = true,
     val computeF: Boolean = false,
     val computeG: Boolean = false,
-    val computeH: Boolean = false
+    val computeH: Boolean = false,
 )
 
 /**
@@ -35,34 +36,55 @@ data class FloorSumResult(
     val rawF: Long,
     val f: Long,
     val g: Long,
-    val h: Long
+    val h: Long,
 )
 
 /**
- * A utility class to solve summation formulas involving floor divisions.
- * Time Complexity: O(log(a + c))
+ * Solves floor-sum families over `sum_{i=0}^{n} floor((a * i + b) / c)`.
  *
- * @property mod The prime modulo for the calculations. Default is 998244353.
+ * REQUIRES: `mod > 0` and `gcd(mod, 6) == 1`
+ *
+ * `solve(a, b, c, n)`: computes the requested floor-sum variants over `i in [0, n]`; O(log(a + c))
  */
 class FloorSumCalculator(private val mod: Long = 998244353L) {
+    init {
+        require(mod > 0L) {
+            "`mod` must be positive"
+        }
+        require(mod % 2L != 0L && mod % 3L != 0L) {
+            "`mod` must be coprime with 6"
+        }
+    }
 
     private val i2: Long = (mod + 1) / 2L
     private val i6: Long = (mod + 1) / 6L
 
     /**
-     * Calculates the [FloorSumResult] for given parameters [a], [b], [c], and [n].
+     * REQUIRES: `a >= 0`, `b >= 0`, `c > 0`, `n >= 0`
      *
-     * @param a The multiplier for i.
-     * @param b The constant addition.
-     * @param c The divisor.
-     * @param n The upper bound of the summation (inclusive).
-     * @param config The [FloorSumConfig] dictating which values to compute.
-     * @return A [FloorSumResult] containing the evaluated sums.
+     * ENSURES: returns the requested sums over `i in [0, n]`;
+     * fields disabled by `config` are set to `0L`
+     *
+     * Evaluates floor-sum expressions and related weighted variants
+     *
+     * Time Complexity: O(log(a + c))
      */
     fun solve(
         a: Long, b: Long, c: Long, n: Long,
-        config: FloorSumConfig = FloorSumConfig()
+        config: FloorSumConfig = FloorSumConfig(),
     ): FloorSumResult {
+        require(a >= 0L) {
+            "`a` must be non-negative"
+        }
+        require(b >= 0L) {
+            "`b` must be non-negative"
+        }
+        require(c > 0L) {
+            "`c` must be positive"
+        }
+        require(n >= 0L) {
+            "`n` must be non-negative"
+        }
         val calcGH = config.computeG || config.computeH
         val calcF = config.computeF || calcGH
         val calcRawF = config.computeRawF
@@ -72,7 +94,7 @@ class FloorSumCalculator(private val mod: Long = 998244353L) {
 
     private fun solveInternal(
         a: Long, b: Long, c: Long, n: Long,
-        calcRawF: Boolean, calcF: Boolean, calcGH: Boolean
+        calcRawF: Boolean, calcF: Boolean, calcGH: Boolean,
     ): FloorSumResult {
         val nMod = n % mod
         val n2 = if (calcF || calcGH) (nMod + 1) * nMod % mod * i2 % mod else 0L
