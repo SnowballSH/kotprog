@@ -1,3 +1,6 @@
+import java.io.BufferedOutputStream
+import java.io.PrintWriter
+
 /** IO */
 private val INPUT = System.`in`
 
@@ -84,5 +87,13 @@ private fun nextLong(): Long {
 // Main Code
 
 fun main() {
+    Thread(null, Main(), "SnowballSH", 1 shl 28).start()
+}
 
+class Main : Runnable {
+    override fun run() {
+        val out = PrintWriter(BufferedOutputStream(OUTPUT))
+        // do stuff
+        out.flush()
+    }
 }

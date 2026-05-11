@@ -5,7 +5,8 @@ Main Contest File
 Last updated: 4/6/2026
 
 ```kotlin
-import java.util.*
+import java.io.BufferedOutputStream
+import java.io.PrintWriter
 
 /** IO */
 private val INPUT = System.`in`
@@ -90,10 +91,17 @@ private fun nextLong(): Long {
     return res * sign
 }
 
+// Main Code
+
 fun main() {
-    val t = readInt()
-    repeat(t) {
-        // do something
+    Thread(null, Main(), "SnowballSH", 1 shl 28).start()
+}
+
+class Main : Runnable {
+    override fun run() {
+        val out = PrintWriter(BufferedOutputStream(OUTPUT))
+        // do stuff
+        out.flush()
     }
 }
 ```
