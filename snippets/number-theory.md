@@ -138,6 +138,121 @@ value class ModLong @PublishedApi internal constructor(val x: Long) {
 fun Long.toModLong(): ModLong = ModLong((this % MOD + MOD) % MOD)
 ```
 
+## Modular Combinatorics
+
+```kotlin
+/**
+ * Precomputed factorials and inverse factorials modulo [mod].
+ *
+ * REQUIRES: `maxN >= 0`, `mod > 1`, and `factorial(maxN)` is invertible modulo [mod].
+ *
+ * `factorial(n)`: returns `n! mod mod`; O(1)
+ * `inverseFactorial(n)`: returns `(n!)^-1 mod mod`; O(1)
+ * `choose(n, k)`: returns `C(n, k) mod mod`; O(1)
+ * `permute(n, k)`: returns `P(n, k) mod mod`; O(1)
+ *
+ * Precomputation Time Complexity: O(maxN + log mod)
+ * Space Complexity: O(maxN)
+ */
+class ModularCombinatorics(
+    maxN: Int,
+    private val mod: Long = 17L,  // Change me
+) {
+    private val maxN: Int
+    private val fact: LongArray
+    private val invFact: LongArray
+
+    init {
+        require(maxN >= 0) {
+            "`maxN` must be non-negative"
+        }
+        require(mod > 1L) {
+            "`mod` must be greater than 1"
+        }
+
+        this.maxN = maxN
+        fact = LongArray(maxN + 1)
+        invFact = LongArray(maxN + 1)
+
+        fact[0] = 1L % mod
+        for (i in 1..maxN) {
+            fact[i] = fact[i - 1] * i % mod
+        }
+
+        invFact[maxN] = invert(fact[maxN])
+        for (i in maxN downTo 1) {
+            invFact[i - 1] = invFact[i] * i % mod
+        }
+    }
+
+    /**
+     * REQUIRES: `0 <= n <= maxN`
+     *
+     * ENSURES: returns `n! mod mod`
+     *
+     * Time Complexity: O(1)
+     */
+    fun factorial(n: Int): Long {
+        require(n in 0..maxN) {
+            "`n` must be in [0, maxN]"
+        }
+        return fact[n]
+    }
+
+    /**
+     * REQUIRES: `0 <= n <= maxN`
+     *
+     * ENSURES: returns the multiplicative inverse of `n!` modulo [mod]
+     *
+     * Time Complexity: O(1)
+     */
+    fun inverseFactorial(n: Int): Long {
+        require(n in 0..maxN) {
+            "`n` must be in [0, maxN]"
+        }
+        return invFact[n]
+    }
+
+    /**
+     * REQUIRES: `0 <= n <= maxN`
+     *
+     * ENSURES: returns `C(n, k) mod mod`; returns `0` when `k !in 0..n`
+     *
+     * Time Complexity: O(1)
+     */
+    fun choose(n: Int, k: Int): Long {
+        require(n in 0..maxN) {
+            "`n` must be in [0, maxN]"
+        }
+        if (k !in 0..n) return 0L
+        return fact[n] * invFact[k] % mod * invFact[n - k] % mod
+    }
+
+    /**
+     * REQUIRES: `0 <= n <= maxN`
+     *
+     * ENSURES: returns `P(n, k) mod mod`; returns `0` when `k !in 0..n`
+     *
+     * Time Complexity: O(1)
+     */
+    fun permute(n: Int, k: Int): Long {
+        require(n in 0..maxN) {
+            "`n` must be in [0, maxN]"
+        }
+        if (k !in 0..n) return 0L
+        return fact[n] * invFact[n - k] % mod
+    }
+
+    private fun invert(value: Long): Long {
+        val (x, _, g) = euclid(value, mod)
+        check(g == 1L) {
+            "factorial(maxN) must be invertible modulo $mod"
+        }
+        return (x % mod + mod) % mod
+    }
+}
+```
+
 ## Prime Sieve
 
 ```kotlin

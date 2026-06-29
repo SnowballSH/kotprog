@@ -276,6 +276,7 @@ Implemented: 4/6/2026
 
 Tested:
 - 4/6/2026 - https://atcoder.jp/contests/practice2/tasks/practice2_l
+- 5/11/2026 - https://atcoder.jp/contests/abc457/tasks/abc457_f
 
 ```kotlin
 /**
@@ -380,7 +381,7 @@ class LazySegmentTree<S, F>(
         require(pos in 0 until n) {
             "`pos` not in [0, n)"
         }
-        val pos = pos + size
+        var pos = pos + size
         for (i in height downTo 1) {
             push(pos shr i)
         }
