@@ -17,4 +17,6 @@ Current topics:
 - `floor-sum.md`: floor sums and like-Euclidean algorithms
 - `inversions.md`: inversion counting with merge sort
 - `treap.md`: implicit treap (array representation, range queries, lazy updates, range reversals) and explicit treap (ordered set/multiset BST)
+- `hld.md`: heavy-light decomposition with path/subtree queries and updates (supporting commutative/non-commutative operations)
+
 
